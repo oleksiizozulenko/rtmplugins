@@ -2,7 +2,7 @@
  * TaskList.java
  * Copyright (C) 2010  Dustin Stroup
 
- * 
+ *
  * This file is part of Java.addMilk.
  *
  * Java.addMilk is free software: you can redistribute it and/or modify
@@ -25,7 +25,7 @@ import java.util.Vector;
 
 /**
  * A wrapper containing information about an RTM TaskList.
- * 
+ *
  * @author Dustin Stroup
  */
 public class TaskList {
@@ -33,10 +33,10 @@ public class TaskList {
 	private boolean _deleted, _locked, _archived, _smart;
 	private Vector<Taskseries> _series;
 	private Transaction _trans;
-	
+
 	public TaskList(){
 	}
-	
+
 	/**
 	 * @param id			The ID associated with this TaskList.
 	 */
@@ -62,7 +62,7 @@ public class TaskList {
 		_locked = locked.equals("1");
 		_archived = archived.equals("1");
 	}
-	
+
 	/**
 	 *	Returns the ID associated with this TaskList.
 	 *
@@ -71,7 +71,7 @@ public class TaskList {
 	public String getID() {
 		return _id;
 	}
-	
+
 	/**
 	 *	Returns the name of this TaskList.
 	 *
@@ -80,7 +80,7 @@ public class TaskList {
 	public String getName() {
 		return _name;
 	}
-	
+
 	/**
 	 * Returns the position of a TaskList.  Currently only used internally to RTM for the Inbox and Sent lists.
 	 *
@@ -89,7 +89,7 @@ public class TaskList {
 	public String getPosition() {
 		return _position;
 	}
-	
+
 	/**
 	 * Indicates whether or not this is a "Smart List".
 	 *
@@ -98,7 +98,7 @@ public class TaskList {
 	public boolean isSmart() {
 		return _smart;
 	}
-	
+
 	/**
 	 *	Returns the filter associated with this TaskList, if any.
 	 *
@@ -107,7 +107,7 @@ public class TaskList {
 	public String getFilter() {
 		return _filter;
 	}
-	
+
 	/**
 	 * Sets the filter associated with this TaskList.
 	 *
@@ -116,7 +116,7 @@ public class TaskList {
 	void setFilter(String filter) {
 		_filter = filter;
 	}
-	
+
 	/**
 	 * Indicates the deleted status of this TaskList.
 	 *
@@ -125,7 +125,7 @@ public class TaskList {
 	public boolean isDeleted() {
 		return _deleted;
 	}
-	
+
 	/**
 	 * Indicates the locked status of this TaskList.
 	 *
@@ -134,7 +134,7 @@ public class TaskList {
 	public boolean isLocked() {
 		return _locked;
 	}
-	
+
 	/**
 	 * Indicates the archived status of this TaskList.
 	 *
@@ -143,7 +143,7 @@ public class TaskList {
 	public boolean isArchived() {
 		return _archived;
 	}
-	
+
 	/**
 	 * Returns the transaction associated with the API call that returned this TaskList.
 	 *
@@ -152,7 +152,7 @@ public class TaskList {
 	public Transaction getTransaction(){
 		return _trans;
 	}
-	
+
 	/**
 	 * Sets the transaction associated with the API call that returned this TaskList.
 	 *
@@ -161,10 +161,10 @@ public class TaskList {
 	void setTransaction(Transaction trans){
 		_trans = trans;
 	}
-	
+
 	/**
 	 * Returns the list of Taskseries in this TaskList.
-	 * 
+	 *
 	 * @return 				A vector of the Taskseries in this TaskList.
 	 */
 	public Vector<Taskseries> getSeries() {
@@ -173,23 +173,39 @@ public class TaskList {
 
 	/**
 	 * Sets the vector of Taskseries for this list.
-	 * 
+	 *
 	 * @param series 		The vector of Taskseries to set.
 	 */
 	void setSeries(Vector<Taskseries> series) {
 		_series = series;
 	}
-	
+
 	/**
 	 * Add a Taskseries to this list.
-	 * 
+	 *
 	 * @param series		The Taskseries to add to this list.
 	 */
 	void addSeries(Taskseries series){
 		if(_series == null){
 			_series = new Vector<Taskseries>();
 		}
-		
+
 		_series.add(series);
+	}
+
+	@Override
+	public String toString() {
+		return "TaskList{" +
+				"_id='" + _id + '\'' +
+				", _name='" + _name + '\'' +
+				", _position='" + _position + '\'' +
+				", _filter='" + _filter + '\'' +
+				", _deleted=" + _deleted +
+				", _locked=" + _locked +
+				", _archived=" + _archived +
+				", _smart=" + _smart +
+				", _series=" + _series +
+				", _trans=" + _trans +
+				"}\n";
 	}
 }

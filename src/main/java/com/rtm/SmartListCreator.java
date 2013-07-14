@@ -6,10 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Vector;
+import java.util.*;
 
 public class SmartListCreator {
 
@@ -38,12 +35,15 @@ public class SmartListCreator {
 
 		Token tocken = rtm.getToken(frob);
 		rtm.setToken(tocken.getToken());
-		rtm.testLogin();
 
 		Vector<TaskList> listOfTaskLists = rtm.getListOfTaskLists();
+		List<String> tasklistsNames = new ArrayList<String>();
+		//System.out.println(listOfTaskLists);
+
 		Vector<Taskseries> alltasks = new Vector<Taskseries>();
 		Vector<String> filtersList = new Vector<String>();
 		for (TaskList tl : listOfTaskLists) {
+			tasklistsNames.add(tl.getName());
 			Vector<TaskList> tasks = rtm.getTaskList(tl.getID(), "", "");
 
 			String filter = tl.getFilter();
@@ -63,14 +63,28 @@ public class SmartListCreator {
 			if (taskTags != null)
 				allTags.addAll(taskTags);
 		}
-		for (String tag : allTags) {
-			if (tag.startsWith("+") && !filtersList.contains("(tag:" + tag + ")")) {
-				String listTimeline = rtm.createTimeline();
-				rtm.addTaskList(listTimeline, "P:" + tag.replace("+", ""), "tag:" + tag );
 
+		//System.out.println(filtersList);
+
+		for (String tag : allTags) {
+			TaskList list = null;
+			String listName = "";
+			if (tag.startsWith("+")) {
+				listName = "P:" + tag.replace("+", "");
+			}
+			if (tag.startsWith("@")) {
+				listName = tag;
+			}
+			if (!filtersList.contains("(tag:" + tag + ")") && !tasklistsNames.contains(listName)) {
+				String listTimeline = rtm.createTimeline();
+				list = rtm.addTaskList(listTimeline, listName, "tag:" + tag);
+			}
+
+			if (list != null) {
+				System.out.println("New SmartList " + list.getName() + " with filter " + list.getFilter() + " created");
 			}
 		}
-		System.out.println();
+		//System.out.println();
 
 	}
 }
