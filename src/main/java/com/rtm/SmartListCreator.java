@@ -28,9 +28,9 @@ public class SmartListCreator {
 		driver.findElement(By.id("remember")).click();
 		driver.findElement(By.id("login-button")).click();
 		try {
-			//  System.out.println(driver.getPageSource());
 			driver.findElement(By.id("authorize_yes")).click();
 		} catch (Exception e) {
+
 		}
 
 		Token tocken = rtm.getToken(frob);
@@ -38,7 +38,6 @@ public class SmartListCreator {
 
 		Vector<TaskList> listOfTaskLists = rtm.getListOfTaskLists();
 		List<String> tasklistsNames = new ArrayList<String>();
-		//System.out.println(listOfTaskLists);
 
 		Vector<Taskseries> alltasks = new Vector<Taskseries>();
 		Vector<String> filtersList = new Vector<String>();
@@ -64,8 +63,6 @@ public class SmartListCreator {
 				allTags.addAll(taskTags);
 		}
 
-		//System.out.println(filtersList);
-
 		for (String tag : allTags) {
 			TaskList list = null;
 			String listName = "";
@@ -84,7 +81,6 @@ public class SmartListCreator {
 				System.out.println("New SmartList " + list.getName() + " with filter " + list.getFilter() + " created");
 			}
 		}
-		//System.out.println();
 
 	}
 }
