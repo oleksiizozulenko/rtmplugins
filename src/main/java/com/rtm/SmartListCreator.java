@@ -43,7 +43,7 @@ public class SmartListCreator {
 		Vector<String> filtersList = new Vector<String>();
 		for (TaskList tl : listOfTaskLists) {
 			tasklistsNames.add(tl.getName());
-			Vector<TaskList> tasks = rtm.getTaskList(tl.getID(), "", "");
+			Vector<TaskList> tasks = rtm.getTaskList(tl.getID(), "status:incomplete", "");
 
 			String filter = tl.getFilter();
 			if (filter != null) {
